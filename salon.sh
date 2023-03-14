@@ -28,19 +28,7 @@ GET_SERVICES_LIST () {
   read SERVICE_ID_SELECTED
 
   case $SERVICE_ID_SELECTED in
-    [1-9]|10) SET_APPOINTMENT $SERVICE_ID_SELECTED;;
-
-    # 1) SET_APPOINTMENT $SERVICE_ID_SELECTED;;
-    # 2) SET_APPOINTMENT $SERVICE_ID_SELECTED;;
-    # 3) SET_APPOINTMENT $SERVICE_ID_SELECTED;;
-    # 4) SET_APPOINTMENT $SERVICE_ID_SELECTED;;
-    # 5) SET_APPOINTMENT $SERVICE_ID_SELECTED;;
-    # 6) SET_APPOINTMENT $SERVICE_ID_SELECTED;;
-    # 7) SET_APPOINTMENT $SERVICE_ID_SELECTED;;
-    # 8) SET_APPOINTMENT $SERVICE_ID_SELECTED;;
-    # 9) SET_APPOINTMENT $SERVICE_ID_SELECTED;;
-    # 10) SET_APPOINTMENT $SERVICE_ID_SELECTED;;
-    
+    [1-9]|10) SET_APPOINTMENT $SERVICE_ID_SELECTED;;    
     *) GET_SERVICES_LIST "Please, enter a valid option.";;
   esac
 }
@@ -59,7 +47,6 @@ SET_APPOINTMENT () {
 
     PHONE_LENGTH=${#CUSTOMER_PHONE}
     if [[ $IS_CUSTOMER_REGISTERED && $PHONE_LENGTH -ge 10 && $PHONE_LENGTH -lt 15 ]]; then
-    # if [[ $IS_CUSTOMER_REGISTERED ]]; then
       CUSTOMER_NAME=$($PSQL "SELECT name FROM customers WHERE customer_id = $IS_CUSTOMER_REGISTERED")
 
       while true; do
@@ -69,7 +56,6 @@ SET_APPOINTMENT () {
         if [[ $SERVICE_TIME =~ ^([01]?[0-9]|2[0-3])(:[0-5][0-9])?([ap]m)?$ ]]; then
             echo $($PSQL "INSERT INTO appointments(customer_id, service_id, time) VALUES($IS_CUSTOMER_REGISTERED, $SERVICE_ID, '$SERVICE_TIME')" > /dev/null)
             PRINT "\n\nI have put you down for a \033[32m$SERVICE_NAME\033[0m at \033[32m$SERVICE_TIME\033[0m, \033[32m$CUSTOMER_NAME\033[0m. \n\n"                
-            # PRINT "\n\nI have put you down for a $SERVICE_NAME at $SERVICE_TIME, $CUSTOMER_NAME.\n\n"
 
             break
           else
@@ -79,8 +65,6 @@ SET_APPOINTMENT () {
 
       break
     elif [[ -z $IS_CUSTOMER_REGISTERED && $PHONE_LENGTH -ge 10 && $PHONE_LENGTH -lt 15 ]]; then
-    # elif [[ -z $IS_CUSTOMER_REGISTERED ]]; then
-    # else
       PRINT "\nYour phone is not registered." "error"
 
       while true; do
@@ -89,7 +73,6 @@ SET_APPOINTMENT () {
         NAME_LENGTH=${#CUSTOMER_NAME}
         
         if [[ $CUSTOMER_NAME && $NAME_LENGTH -ge 3 && $NAME_LENGTH -le 50 ]]; then
-        # if [[ $CUSTOMER_NAME ]]; then
           echo $($PSQL "INSERT INTO customers(name, phone) VALUES('$CUSTOMER_NAME', '$CUSTOMER_PHONE')" > /dev/null)
           PRINT "\n#### Hello $CUSTOMER_NAME, your phone number has been registered! ####\n" "success"
 
@@ -98,13 +81,10 @@ SET_APPOINTMENT () {
               read SERVICE_TIME
 
               if [[ $SERVICE_TIME =~ ^([01]?[0-9]|2[0-3])(:[0-5][0-9])?([ap]m)?$ ]]; then
-              # if [[ $SERVICE_TIME ]]; then
                   CUSTOMER_ID=$($PSQL "SELECT customer_id FROM customers WHERE phone = '$CUSTOMER_PHONE'")
                   echo $($PSQL "INSERT INTO appointments(customer_id, service_id, time) VALUES($CUSTOMER_ID, $SERVICE_ID, '$SERVICE_TIME')" > /dev/null)
 
                   PRINT "\n\nI have put you down for a \033[32m$SERVICE_NAME\033[0m at \033[32m$SERVICE_TIME\033[0m, \033[32m$CUSTOMER_NAME\033[0m. \n\n"
-                  # PRINT "\n\nI have put you down for a $SERVICE_NAME at $SERVICE_TIME, $CUSTOMER_NAME.\n\n"
-
                   break
                 else
                   PRINT "$CUSTOMER_NAME, please enter a valid time format (HH:MM)." "warning"
