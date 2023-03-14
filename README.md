@@ -1,1 +1,1 @@
-# salon-appointment-ccheduler-bash-psql
+# salon-appointment-scheduler-bash-psql
