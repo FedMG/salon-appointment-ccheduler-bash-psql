@@ -1,7 +1,6 @@
 # Salon Database & Salon Appointment Scheduler Bash Project
 
-This project is a database for a salon that tracks appointments, services, and customers using PostgreSQL. Additionally, a Bash script has been created to interact with the database and perform various tasks.
-
+This project has a PostgreSQL database for a salon. Additionally, a Bash script query or inserts new customers whether exists or not, give new appointments and display differents services.
 
 ## Database Tables
 
@@ -40,4 +39,4 @@ There are more features beyond the scope of this readme.
 
 ## Conclusion
 
-This salon database project demonstrates the use of PostgreSQL for storing and managing salon data. Also, the hability to relate differents table according to its primary and foreign keys. The Bash script provides a convenient way to interact with the database and perform various tasks.
+This salon database project demonstrates the use of PostgreSQL for storing and managing salon data. Also, the hability to relate differents table using efficients JOIN.
