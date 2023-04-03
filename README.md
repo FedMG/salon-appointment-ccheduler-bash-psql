@@ -40,4 +40,4 @@ There are more features beyond the scope of this readme.
 
 ## Conclusion
 
-This salon database project demonstrates the use of PostgreSQL for storing and managing salon data. The Bash script provides a convenient way to interact with the database and perform various tasks.
+This salon database project demonstrates the use of PostgreSQL for storing and managing salon data. Also, the hability to relate differents table according to its primary and foreign keys. The Bash script provides a convenient way to interact with the database and perform various tasks.
